@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fee Payment History & Electronic Receipts | CourseHub Learning Portal</title>
+  <meta name="description" content="View complete audit trail of course fee transactions, Razorpay IDs, and download official receipts.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="dashboard.html">DASHBOARD</a>
+        <span>&gt;</span>
+        <span class="current">FEE PAYMENT TRANSACTION HISTORY</span>
+      </div>
+
+      <!-- Main Box -->
+      <div class="gov-box">
+        <div class="gov-box-header">
+          <span>🧾 CENTRAL AUDIT TRAIL — ONLINE FEE TRANSACTIONS</span>
+          <a href="courses.html" style="color:#ffffff; font-size:11.5px; text-decoration:underline;">+ Pay New Course Fee &raquo;</a>
+        </div>
+        <div class="gov-box-body" style="padding:16px;">
+          
+          <div style="background:#eef3f8; border-left:4px solid var(--gov-navy); padding:10px 14px; margin-bottom:16px; font-size:12px; line-height:1.5;">
+            <strong>Transaction Records Summary:</strong>
+            <div style="margin-top:2px;">
+              Learner ID: <strong id="lbl-hist-id">CH-2026-9482</strong> • All payments are recorded in real-time with Razorpay reference IDs and digital receipts.
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="gov-table-container">
+            <table class="gov-table">
+              <thead>
+                <tr>
+                  <th style="width:45px;" class="text-center">S.No</th>
+                  <th>Receipt Number</th>
+                  <th>Course Title & Code</th>
+                  <th>Payment Date</th>
+                  <th>Gateway Ref / Payment ID</th>
+                  <th style="text-align:right;">Amount (₹)</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center" style="width:140px;">Electronic Receipt</th>
+                </tr>
+              </thead>
+              <tbody id="payment-history-tbody">
+                <tr>
+                  <td colspan="8" class="text-center" style="padding:24px;">Loading fee transaction records...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('payments');
+      renderGovPortalFooter();
+
+      const user = GovStore.getCurrentUser();
+      document.getElementById('lbl-hist-id').textContent = user.learnerId;
+
+      const tbody = document.getElementById('payment-history-tbody');
+      
+      // Load payments from local store or server
+      let payments = GovStore.getPayments();
+
+      try {
+        const res = await fetch(`/api/payment-history?userId=${user.id}`);
+        if (res.ok) {
+          const serverPayments = await res.json();
+          if (serverPayments && serverPayments.length > 0) {
+            payments = serverPayments;
+          }
+        }
+      } catch (e) {}
+
+      if (payments.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center" style="padding:24px; color:#666;">
+              No payment transactions recorded. 
+              <a href="courses.html" style="font-weight:bold; color:var(--gov-navy);">Browse Courses &raquo;</a>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = payments.map((p, i) => {
+        const sNo = String(i + 1).padStart(2, '0');
+        return `
+          <tr>
+            <td class="text-center"><strong>${sNo}</strong></td>
+            <td><code style="font-weight:bold; color:var(--gov-navy);">${p.receiptNo}</code></td>
+            <td>
+              <strong style="color:#212529;">${p.courseTitle || 'Course Fee'}</strong>
+              <div style="font-size:11px; color:#555;"><code>${p.courseCode || 'CH-CRS-' + p.courseId}</code></div>
+            </td>
+            <td style="white-space:nowrap;">${formatGovDate(p.date)}</td>
+            <td><code style="font-size:11.5px;">${p.paymentId || 'pay_demo'}</code></td>
+            <td style="text-align:right;"><strong style="color:var(--gov-navy);">${formatINR(p.amount)}</strong></td>
+            <td class="text-center">
+              <span class="gov-badge ${p.status === 'SUCCESS' ? 'success' : 'pending'}">${p.status}</span>
+            </td>
+            <td class="text-center">
+              <a href="success.html?receiptNo=${p.receiptNo}&courseId=${p.courseId}" class="gov-btn gov-btn-outline gov-btn-sm">
+                📄 View Receipt
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+    });
+  </script>
+</body>
+</html>

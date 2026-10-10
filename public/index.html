@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CourseHub Learning Portal — Online Learning & Skill Development Portal</title>
+  <meta name="description" content="Official course registration, fee payment, and digital certifications for technical and management courses.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Portal Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumb -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <span class="current">PORTAL HOME</span>
+      </div>
+
+      <!-- 3-Column Government Portal Grid -->
+      <div class="gov-portal-grid">
+
+        <!-- LEFT COLUMN: Important Links / Quick Services -->
+        <aside class="gov-portal-left">
+          <div class="gov-box">
+            <div class="gov-box-header">
+              <span>📌 IMPORTANT LINKS</span>
+            </div>
+            <ul class="gov-quick-links">
+              <li><a href="courses.html">Browse Course Directory</a></li>
+              <li><a href="register.html">New Learner Registration</a></li>
+              <li><a href="login.html">Learner Portal Login</a></li>
+              <li><a href="dashboard.html">Learner Dashboard</a></li>
+              <li><a href="my-courses.html">My Registered Courses</a></li>
+              <li><a href="payment-history.html">Online Fee Receipts</a></li>
+              <li><a href="certificate.html?courseId=course_001">Verify Digital Certificate</a></li>
+              <li><a href="helpdesk.html">Central Helpdesk & Grievance</a></li>
+              <li><a href="helpdesk.html#faqs">Frequently Asked Questions</a></li>
+              <li><a href="courses.html?filter=syllabus">Download Syllabus PDF</a></li>
+            </ul>
+          </div>
+
+          <!-- Quick Service Box -->
+          <div class="gov-box">
+            <div class="gov-box-header green">
+              <span>💳 FEE SERVICES</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12px; line-height:1.5;">
+              <p style="margin-bottom:8px;">
+                Online fee payment can be completed securely via <strong>Razorpay Payment Gateway</strong> using UPI, Cards, or NetBanking.
+              </p>
+              <a href="courses.html" class="gov-btn gov-btn-success gov-btn-sm" style="width:100%; text-align:center;">
+                Pay Course Fee
+              </a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- CENTER COLUMN: Search Banner & Featured Offerings -->
+        <section class="gov-portal-center">
+          
+          <!-- Course Search Panel -->
+          <div class="gov-search-panel">
+            <div class="gov-panel-title">
+              <span>🔍 Course Search & Online Registration</span>
+              <span style="font-size:11px; font-weight:normal; text-transform:none; color:#555;">Academic Session 2026</span>
+            </div>
+
+            <form action="courses.html" method="GET" id="home-search-form">
+              <div class="gov-form-grid">
+                <div class="gov-form-group">
+                  <label class="gov-form-label" for="search-category">Discipline / Category</label>
+                  <select id="search-category" name="category" class="gov-select">
+                    <option value="">-- All Categories --</option>
+                    <option value="Development">Information Technology</option>
+                    <option value="Data Science">Data Science & Analytics</option>
+                    <option value="AI & Machine Learning">Artificial Intelligence</option>
+                    <option value="IT & Software">Cyber Security & Cloud</option>
+                    <option value="Design">UI/UX & Digital Design</option>
+                    <option value="Finance">Financial Analysis</option>
+                    <option value="Business">Management Studies</option>
+                    <option value="Marketing">Digital Media</option>
+                  </select>
+                </div>
+
+                <div class="gov-form-group">
+                  <label class="gov-form-label" for="search-mode">Instruction Mode</label>
+                  <select id="search-mode" name="mode" class="gov-select">
+                    <option value="">-- All Modes --</option>
+                    <option value="Self-Paced">Online (Self-Paced)</option>
+                    <option value="Instructor-Led">Online (Instructor-Led)</option>
+                  </select>
+                </div>
+
+                <div class="gov-form-group" style="grid-column: span 2;">
+                  <label class="gov-form-label" for="search-keyword">Course Keyword / Title / Code</label>
+                  <input type="text" id="search-keyword" name="search" class="gov-input" placeholder="e.g. Web Development, Python, CSE-FSWD-001">
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px;">
+                <button type="submit" class="gov-btn gov-btn-primary">
+                  Search Courses
+                </button>
+                <button type="reset" class="gov-btn gov-btn-outline">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Featured Courses Formal Data Table -->
+          <div class="gov-box">
+            <div class="gov-box-header">
+              <span>📋 Key National Skill Offerings (Active Batches)</span>
+              <a href="courses.html" style="color:#ffffff; font-size:11px; text-decoration:underline;">View All 20 Courses &raquo;</a>
+            </div>
+            <div class="gov-table-container">
+              <table class="gov-table" id="featured-courses-table">
+                <thead>
+                  <tr>
+                    <th style="width:50px;">S.No</th>
+                    <th>Code</th>
+                    <th>Course Title</th>
+                    <th>Category</th>
+                    <th>Duration</th>
+                    <th>Fee (₹)</th>
+                    <th>Status</th>
+                    <th style="text-align:center;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="featured-courses-tbody">
+                  <tr>
+                    <td colspan="8" class="text-center" style="padding:20px;">Loading official course registry...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Portal Institutional Highlights -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background-color:#1a365d;">
+              <span>🏛️ PORTAL FEATURES & QUALITY STANDARDS</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12.5px; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div style="border-left:3px solid var(--gov-navy); padding-left:10px;">
+                <strong style="color:var(--gov-navy); font-size:13px;">Government-Portal-Style Structure</strong>
+                <p style="color:#4a5568; margin-top:4px;">Streamlined, functional, tabular academic data and formal syllabi without intrusive marketing popups or distractions.</p>
+              </div>
+              <div style="border-left:3px solid var(--gov-saffron); padding-left:10px;">
+                <strong style="color:var(--gov-navy); font-size:13px;">Secure Razorpay Integration</strong>
+                <p style="color:#4a5568; margin-top:4px;">Direct bank and card checkout with server-side HMAC-SHA256 signature verification and authentic transaction receipts.</p>
+              </div>
+              <div style="border-left:3px solid var(--gov-green); padding-left:10px;">
+                <strong style="color:var(--gov-green-dark); font-size:13px;">Verifiable Digital E-Certificates</strong>
+                <p style="color:#4a5568; margin-top:4px;">Each certificate includes a unique verification identification number for institutional authentication.</p>
+              </div>
+              <div style="border-left:3px solid var(--gov-maroon); padding-left:10px;">
+                <strong style="color:var(--gov-maroon); font-size:13px;">Helpdesk & Grievance Cell</strong>
+                <p style="color:#4a5568; margin-top:4px;">Integrated grievance tracking system for registration, payment receipt reconciliation, and technical queries.</p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- RIGHT COLUMN: Notices & Statistics -->
+        <aside class="gov-portal-right">
+          
+          <!-- Portal Updates & Circulars -->
+          <div class="gov-box">
+            <div class="gov-box-header maroon">
+              <span>🔔 CIRCULARS & NOTICES</span>
+            </div>
+            <div class="gov-box-body" style="padding:10px 14px;">
+              <ul class="gov-notice-list">
+                <li class="gov-notice-item">
+                  <span class="gov-notice-date new">10-OCT-2026 [NEW]</span>
+                  <a href="courses.html" class="gov-notice-title">Admissions opened for Q4 2026 Advanced Certificate Batches in AI & Cloud Computing.</a>
+                </li>
+                <li class="gov-notice-item">
+                  <span class="gov-notice-date new">09-OCT-2026 [NEW]</span>
+                  <a href="payment-history.html" class="gov-notice-title">Learners may download fee receipts directly from the Payment History portal.</a>
+                </li>
+                <li class="gov-notice-item">
+                  <span class="gov-notice-date">07-OCT-2026</span>
+                  <a href="certificate.html?courseId=course_001" class="gov-notice-title">QR-Code digital certificate verification system deployed for all graduated batches.</a>
+                </li>
+                <li class="gov-notice-item">
+                  <span class="gov-notice-date">04-OCT-2026</span>
+                  <a href="helpdesk.html" class="gov-notice-title">Toll-free Helpdesk timing extended to 9:30 AM – 6:00 PM on all working days.</a>
+                </li>
+                <li class="gov-notice-item">
+                  <span class="gov-notice-date">01-OCT-2026</span>
+                  <a href="courses.html" class="gov-notice-title">Guidelines on eligibility criteria and self-paced course completion timeline published.</a>
+                </li>
+              </ul>
+              <div style="text-align:right; margin-top:10px; border-top:1px solid #eee; padding-top:6px;">
+                <a href="helpdesk.html" style="font-size:11px; font-weight:bold;">View All Archive Notices &raquo;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Portal Helpdesk Box -->
+          <div class="gov-box">
+            <div class="gov-box-header">
+              <span>🎧 CENTRAL HELPDESK</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12px;">
+              <p style="margin-bottom:8px;">For technical support, enrollment queries, or fee receipt issues:</p>
+              <div style="background:#eef3f8; padding:8px; border:1px solid #d0d7de; margin-bottom:10px; border-radius:2px;">
+                <strong>Toll-Free:</strong> 1800-266-9900<br>
+                <strong>Email:</strong> helpdesk@coursehub-portal.org<br>
+                <strong>Working Hours:</strong> Mon - Fri, 9:30 AM to 6:00 PM
+              </div>
+              <a href="helpdesk.html" class="gov-btn gov-btn-primary gov-btn-sm" style="width:100%; text-align:center;">
+                Lodge Grievance / Query
+              </a>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+
+      <!-- COURSE CATEGORIES SECTION -->
+      <section style="margin-top:20px;">
+        <div class="gov-panel-title" style="margin-bottom:14px;">
+          <span>📂 ACADEMIC DISCIPLINES & CATEGORIES</span>
+          <span style="font-size:12px; font-weight:normal; text-transform:none; color:#555;">Select a discipline to view all affiliated courses</span>
+        </div>
+
+        <div class="gov-categories-grid">
+          <a href="courses.html?category=Development" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Information Technology</div>
+              <div style="font-size:11px; color:#666;">Software, Web & App Development</div>
+            </div>
+            <span class="gov-cat-count">4 Courses</span>
+          </a>
+
+          <a href="courses.html?category=Data+Science" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Data Science & Analytics</div>
+              <div style="font-size:11px; color:#666;">Data Analysis, SQL, Algorithms</div>
+            </div>
+            <span class="gov-cat-count">3 Courses</span>
+          </a>
+
+          <a href="courses.html?category=AI+%26+Machine+Learning" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Artificial Intelligence</div>
+              <div style="font-size:11px; color:#666;">Machine Learning, Deep Learning</div>
+            </div>
+            <span class="gov-cat-count">2 Courses</span>
+          </a>
+
+          <a href="courses.html?category=IT+%26+Software" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Cyber Security & Cloud</div>
+              <div style="font-size:11px; color:#666;">Information Security, AWS, DevOps</div>
+            </div>
+            <span class="gov-cat-count">4 Courses</span>
+          </a>
+
+          <a href="courses.html?category=Design" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Digital Design & UI/UX</div>
+              <div style="font-size:11px; color:#666;">Interaction Design, Figma</div>
+            </div>
+            <span class="gov-cat-count">2 Courses</span>
+          </a>
+
+          <a href="courses.html?category=Finance" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Finance & Accounting</div>
+              <div style="font-size:11px; color:#666;">Investment, Financial Analysis</div>
+            </div>
+            <span class="gov-cat-count">2 Courses</span>
+          </a>
+
+          <a href="courses.html?category=Business" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Management Studies</div>
+              <div style="font-size:11px; color:#666;">Project Governance, Leadership</div>
+            </div>
+            <span class="gov-cat-count">1 Course</span>
+          </a>
+
+          <a href="courses.html?category=Marketing" class="gov-cat-card">
+            <div>
+              <div class="gov-cat-name">Digital Media & Commerce</div>
+              <div style="font-size:11px; color:#666;">Digital Marketing, Content Media</div>
+            </div>
+            <span class="gov-cat-count">2 Courses</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- PORTAL STATISTICS BANNER -->
+      <section class="gov-stats-banner">
+        <div class="gov-container">
+          <div class="gov-stats-grid">
+            <div class="gov-stat-item">
+              <div class="gov-stat-number">1,48,250+</div>
+              <div class="gov-stat-label">Registered Learners</div>
+            </div>
+            <div class="gov-stat-item">
+              <div class="gov-stat-number">20</div>
+              <div class="gov-stat-label">Recognized Courses</div>
+            </div>
+            <div class="gov-stat-item">
+              <div class="gov-stat-number">42,600+</div>
+              <div class="gov-stat-label">Verified Certifications Issued</div>
+            </div>
+            <div class="gov-stat-item">
+              <div class="gov-stat-number">99.4%</div>
+              <div class="gov-stat-label">Gateway Success Rate</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('home');
+      renderGovPortalFooter();
+
+      // Load Featured Courses from API
+      try {
+        const res = await fetch('/api/courses');
+        const courses = await res.json();
+        const tbody = document.getElementById('featured-courses-tbody');
+        if (!tbody) return;
+
+        // Take first 8 courses for the homepage table
+        const featured = courses.slice(0, 8);
+        tbody.innerHTML = featured.map((c, i) => {
+          const sNo = String(i + 1).padStart(2, '0');
+          const isEnrolled = GovStore.isEnrolled(c.id);
+          return `
+            <tr>
+              <td class="text-center"><strong>${sNo}</strong></td>
+              <td><code>${c.code || 'CH-CRS-' + c.id}</code></td>
+              <td>
+                <a href="course.html?id=${c.id}" style="font-weight:700;">${c.title}</a>
+                <div style="font-size:11px; color:#555;">${c.department || c.instructor}</div>
+              </td>
+              <td>${c.category}</td>
+              <td>${c.durationWeeks || c.duration}</td>
+              <td><strong>${formatINR(c.price)}</strong></td>
+              <td><span class="gov-badge active">${c.status || 'Active'}</span></td>
+              <td class="text-center" style="white-space:nowrap;">
+                <a href="course.html?id=${c.id}" class="gov-btn gov-btn-outline gov-btn-sm" style="margin-right:4px;">
+                  View
+                </a>
+                ${isEnrolled ? `
+                  <a href="learn.html?courseId=${c.id}" class="gov-btn gov-btn-success gov-btn-sm">
+                    Access
+                  </a>
+                ` : `
+                  <a href="checkout.html?courseId=${c.id}" class="gov-btn gov-btn-primary gov-btn-sm">
+                    Enroll
+                  </a>
+                `}
+              </td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        console.error('Failed to load courses:', err);
+      }
+    });
+  </script>
+</body>
+</html>

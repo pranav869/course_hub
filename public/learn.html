@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Learning LMS Classroom | CourseHub Learning Portal</title>
+  <meta name="description" content="Digital course player and lecture viewer for enrolled students.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .lms-curriculum-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .lms-curriculum-header {
+      background: #002244;
+      color: #fff;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .lms-lecture-item {
+      padding: 9px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.15s;
+    }
+    .lms-lecture-item:hover {
+      background: #eaf1f8;
+    }
+    .lms-lecture-item.active {
+      background: #e3f2fd;
+      border-left: 4px solid var(--gov-navy);
+      font-weight: bold;
+      color: var(--gov-navy);
+    }
+    .lms-lecture-status {
+      font-size: 14px;
+      margin-right: 8px;
+    }
+    .lms-video-container {
+      background: #000;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="dashboard.html">DASHBOARD</a>
+        <span>&gt;</span>
+        <a href="my-courses.html">MY COURSES</a>
+        <span>&gt;</span>
+        <span class="current" id="lbl-course-title">ONLINE CLASSROOM</span>
+      </div>
+
+      <!-- Top LMS Banner with Progress -->
+      <div class="gov-box" style="margin-bottom:16px;">
+        <div class="gov-box-body" style="padding:14px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="font-size:11px; text-transform:uppercase; color:#666; font-weight:bold;" id="lbl-course-code">
+              COURSE CODE: CSE-FSWD-001
+            </div>
+            <h2 style="font-size:18px; color:var(--gov-navy); font-weight:800; margin-top:2px;" id="lbl-course-heading">
+              Complete Web Development Bootcamp 2026
+            </h2>
+          </div>
+          
+          <div style="min-width:240px;">
+            <div style="display:flex; justify-content:space-between; font-size:11.5px; font-weight:bold; margin-bottom:4px;">
+              <span>Academic Course Progress:</span>
+              <span id="lbl-progress-num" style="color:var(--gov-navy);">65% Completed</span>
+            </div>
+            <div style="background:#e0e0e0; height:10px; border-radius:2px; overflow:hidden;">
+              <div id="lms-progress-bar" style="width:65%; background:var(--gov-green-dark); height:100%; transition:width 0.3s;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2-Column LMS Workspace: Left Syllabus (320px) + Right Player -->
+      <div style="display:grid; grid-template-columns: 320px 1fr; gap:18px; align-items:start;">
+
+        <!-- LEFT SYLLABUS OUTLINE -->
+        <aside class="gov-lms-sidebar">
+          <div class="gov-box">
+            <div class="gov-box-header">
+              <span>📑 MODULE SYLLABUS</span>
+            </div>
+            <div style="max-height:600px; overflow-y:auto;" id="curriculum-container">
+              <!-- Syllabus items injected by JS -->
+            </div>
+          </div>
+
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#455a64;">
+              <span>📁 LECTURE RESOURCES</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12px;">
+              <ul style="padding-left:16px; line-height:1.7;">
+                <li><a href="#" onclick="alert('Downloading Module Lecture Notes PDF...'); return false;">📄 Lecture Slides & Notes (PDF)</a></li>
+                <li><a href="#" onclick="alert('Downloading Practical Source Code ZIP...'); return false;">📦 Starter Code Repository (ZIP)</a></li>
+                <li><a href="helpdesk.html">❓ Academic Query Redressal Cell</a></li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <!-- RIGHT VIDEO & LECTURE VIEWER -->
+        <section class="gov-lms-player">
+
+          <!-- Video Player Box -->
+          <div class="gov-box" style="margin-bottom:16px;">
+            <div class="lms-video-container">
+              <!-- Simulated Video Screen -->
+              <div style="text-align:center; padding:20px; z-index:2;">
+                <div style="font-size:48px; cursor:pointer;" onclick="togglePlayState()" id="video-play-icon">▶️</div>
+                <div style="font-size:16px; font-weight:bold; margin-top:8px;" id="video-lecture-title">
+                  Flexbox Deep Dive & Grid Architecture
+                </div>
+                <div style="font-size:12px; color:#ccc; margin-top:4px;">
+                  CourseHub Official LMS • Secure High-Definition Stream
+                </div>
+              </div>
+              <div style="position:absolute; bottom:10px; left:15px; right:15px; display:flex; justify-content:space-between; font-size:11px; color:#aaa; background:rgba(0,0,0,0.6); padding:4px 10px; border-radius:2px;">
+                <span id="video-timer">08:24 / 20:30</span>
+                <span>HD 1080p • 1.0x</span>
+              </div>
+            </div>
+
+            <!-- Player Controls & Action Bar -->
+            <div class="gov-box-body" style="background:#f9fbfd; border-top:1px solid #d0d7de; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <button type="button" class="gov-btn gov-btn-outline gov-btn-sm" onclick="prevLecture()">
+                « Previous Lecture
+              </button>
+
+              <div style="display:flex; gap:10px;">
+                <button type="button" class="gov-btn gov-btn-success" id="btn-mark-complete" onclick="markCurrentComplete()">
+                  ✓ Mark Lecture Complete
+                </button>
+                <a id="btn-view-certificate" href="certificate.html" class="gov-btn gov-btn-primary" style="font-size:11.5px;">
+                  View Certificate »
+                </a>
+              </div>
+
+              <button type="button" class="gov-btn gov-btn-outline gov-btn-sm" onclick="nextLecture()">
+                Next Lecture »
+              </button>
+            </div>
+          </div>
+
+          <!-- Lecture Notes Section -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>📝 LECTURE SYNOPSIS & KEY TOPICS</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12.5px; line-height:1.6; color:#333;">
+              <h3 style="font-size:15px; color:var(--gov-navy); margin-bottom:8px;" id="lecture-notes-title">
+                Flexbox Deep Dive & Responsive CSS Architecture
+              </h3>
+              <p id="lecture-notes-body">
+                In this lecture, candidates will explore the comprehensive mental model of the CSS Flexible Box Layout module. Topics include main-axis and cross-axis alignment, flex-grow, flex-shrink, flex-basis calculations, and nesting flex containers for robust responsive navigation and government dashboard structures.
+              </p>
+              <div style="margin-top:14px; background:#eef3f8; border-left:3px solid var(--gov-navy); padding:8px 12px; font-size:12px;">
+                <strong>Key Takeaway:</strong> Master flex-wrap and gap properties to ensure zero horizontal viewport overflow across all mobile, tablet, and widescreen terminals.
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    let currentCourse = null;
+    let currentLectureIndex = 0;
+    let allLectures = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('my-courses');
+      renderGovPortalFooter();
+
+      const params = new URLSearchParams(window.location.search);
+      const courseId = params.get('courseId') || 'course_001';
+
+      try {
+        const res = await fetch(`/api/courses/${courseId}`);
+        if (!res.ok) throw new Error('Course not found');
+        currentCourse = await res.json();
+
+        document.getElementById('lbl-course-title').textContent = currentCourse.title.toUpperCase();
+        document.getElementById('lbl-course-code').textContent = `COURSE CODE: ${currentCourse.code || 'CH-CRS-' + currentCourse.id}`;
+        document.getElementById('lbl-course-heading').textContent = currentCourse.title;
+        document.getElementById('btn-view-certificate').href = `certificate.html?courseId=${courseId}`;
+
+        // Build flat lecture list
+        allLectures = [];
+        if (currentCourse.curriculum) {
+          currentCourse.curriculum.forEach(section => {
+            if (section.lectures) {
+              section.lectures.forEach(l => {
+                allLectures.push({ ...l, sectionName: section.section });
+              });
+            }
+          });
+        }
+
+        renderCurriculumSidebar();
+        loadLecture(currentLectureIndex);
+        updateProgressDisplay();
+
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    function renderCurriculumSidebar() {
+      const container = document.getElementById('curriculum-container');
+      if (!currentCourse.curriculum) return;
+
+      let html = '';
+      let lectureCounter = 0;
+
+      currentCourse.curriculum.forEach((section, sIdx) => {
+        html += `<div class="lms-curriculum-header">Module ${sIdx + 1}: ${section.section}</div><ul class="lms-curriculum-list">`;
+        if (section.lectures) {
+          section.lectures.forEach(l => {
+            const idx = lectureCounter++;
+            const isCompleted = idx < 5;
+            html += `
+              <li class="lms-lecture-item ${idx === currentLectureIndex ? 'active' : ''}" onclick="loadLecture(${idx})">
+                <div style="display:flex; align-items:center;">
+                  <span class="lms-lecture-status" style="color:${isCompleted ? '#1b5e20' : '#888'};">
+                    ${isCompleted ? '✓' : '○'}
+                  </span>
+                  <span>${l.title}</span>
+                </div>
+                <span style="font-size:10.5px; color:#777;">${l.duration}</span>
+              </li>
+            `;
+          });
+        }
+        html += `</ul>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function loadLecture(idx) {
+      if (idx < 0 || idx >= allLectures.length) return;
+      currentLectureIndex = idx;
+      const lecture = allLectures[idx];
+
+      document.getElementById('video-lecture-title').textContent = lecture.title;
+      document.getElementById('video-timer').textContent = `00:00 / ${lecture.duration}`;
+      document.getElementById('lecture-notes-title').textContent = `${lecture.sectionName}: ${lecture.title}`;
+      document.getElementById('lecture-notes-body').textContent = 
+        `Official lecture module covering ${lecture.title}. Candidates are requested to take notes and complete the associated laboratory exercises before progressing to the subsequent unit.`;
+
+      // Highlight active in sidebar
+      const items = document.querySelectorAll('.lms-lecture-item');
+      items.forEach((item, i) => {
+        if (i === idx) item.classList.add('active');
+        else item.classList.remove('active');
+      });
+    }
+
+    function togglePlayState() {
+      const icon = document.getElementById('video-play-icon');
+      if (icon.textContent === '▶️') {
+        icon.textContent = '⏸️';
+        showGovToast('Playing', 'Lecture playback active.', 'info');
+      } else {
+        icon.textContent = '▶️';
+        showGovToast('Paused', 'Lecture playback paused.', 'info');
+      }
+    }
+
+    function markCurrentComplete() {
+      let progress = GovStore.getProgress(currentCourse.id);
+      progress = Math.min(100, progress + 10);
+      GovStore.setProgress(currentCourse.id, progress);
+      updateProgressDisplay();
+      showGovToast('Lecture Completed', `Academic Progress updated to ${progress}%!`, 'success');
+      nextLecture();
+    }
+
+    function updateProgressDisplay() {
+      const progress = GovStore.getProgress(currentCourse.id);
+      document.getElementById('lbl-progress-num').textContent = `${progress}% Completed`;
+      document.getElementById('lms-progress-bar').style.width = `${progress}%`;
+    }
+
+    function nextLecture() {
+      if (currentLectureIndex < allLectures.length - 1) {
+        loadLecture(currentLectureIndex + 1);
+      } else {
+        alert('You have reached the final lecture of this course!');
+      }
+    }
+
+    function prevLecture() {
+      if (currentLectureIndex > 0) {
+        loadLecture(currentLectureIndex - 1);
+      }
+    }
+  </script>
+</body>
+</html>

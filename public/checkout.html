@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Course Fee Payment Challan | CourseHub Learning Portal</title>
+  <meta name="description" content="Official electronic fee payment gateway for online course enrollment.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container" style="max-width: 820px;">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="courses.html">COURSES</a>
+        <span>&gt;</span>
+        <span class="current">ONLINE COURSE FEE PAYMENT</span>
+      </div>
+
+      <!-- Formal Fee Assessment Challan Box -->
+      <div class="gov-receipt-card" style="margin-bottom:24px;">
+        
+        <div class="gov-receipt-header">
+          <div class="gov-receipt-seal">
+            <!-- Seal injected by JS -->
+            <div id="seal-mount"></div>
+          </div>
+          <div class="gov-receipt-title">CourseHub Learning Portal</div>
+          <div class="gov-receipt-subtitle">CENTRAL ONLINE COURSE FEE ASSESSMENT & PAYMENT CHALLAN</div>
+          <div style="font-size:11px; color:#555; margin-top:3px;">
+            Transaction Assessment Ref: <code id="ref-no">CH-TXN-2026-PENDING</code> • Date: <strong id="curr-date">10-Oct-2026</strong>
+          </div>
+        </div>
+
+        <!-- Learner Information Strip -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:13px; font-weight:800; color:var(--gov-navy); border-bottom:1px solid #d0d7de; padding-bottom:4px; margin-bottom:8px; text-transform:uppercase;">
+            1. Registered Learner Credentials
+          </div>
+          <table class="gov-info-table" style="margin-bottom:0;">
+            <tbody>
+              <tr>
+                <th style="width:20%;">Learner Full Name</th>
+                <td style="width:30%;"><strong id="cand-name">PRANAV EASHWARAN G</strong></td>
+                <th style="width:20%;">Learner ID No.</th>
+                <td style="width:30%;"><code id="cand-id" style="font-weight:bold;">CH-2026-9482</code></td>
+              </tr>
+              <tr>
+                <th>Registered Email</th>
+                <td id="cand-email">rajesh.kumar@example.in</td>
+                <th>Mobile Number</th>
+                <td id="cand-phone">+91 98765 43210</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Course Particulars -->
+        <div style="margin-bottom:16px;">
+          <div style="font-size:13px; font-weight:800; color:var(--gov-navy); border-bottom:1px solid #d0d7de; padding-bottom:4px; margin-bottom:8px; text-transform:uppercase;">
+            2. Prescribed Course Particulars
+          </div>
+          <table class="gov-info-table" style="margin-bottom:0;">
+            <tbody>
+              <tr>
+                <th style="width:20%;">Course Code</th>
+                <td style="width:30%;"><code id="cand-course-code" style="font-weight:bold; color:var(--gov-navy);">CSE-FSWD-001</code></td>
+                <th style="width:20%;">Instruction Mode</th>
+                <td style="width:30%;" id="cand-course-mode">Online (Self-Paced)</td>
+              </tr>
+              <tr>
+                <th>Course Title</th>
+                <td colspan="3"><strong id="cand-course-title" style="color:var(--gov-navy);">Complete Web Development Bootcamp 2026</strong></td>
+              </tr>
+              <tr>
+                <th>Department</th>
+                <td colspan="3" id="cand-course-dept">Department of Computer Science & Software Engineering</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Fee Schedule Table -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px; font-weight:800; color:var(--gov-navy); border-bottom:1px solid #d0d7de; padding-bottom:4px; margin-bottom:8px; text-transform:uppercase;">
+            3. Fee Assessment Schedule
+          </div>
+          <div class="gov-table-container" style="border:1px solid #d0d7de; margin:0;">
+            <table class="gov-table">
+              <thead>
+                <tr>
+                  <th style="width:50px;">S.No</th>
+                  <th>Fee Head Description</th>
+                  <th style="text-align:right;">Amount (INR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">01</td>
+                  <td>Standard Tuition & Academic Access Fee</td>
+                  <td style="text-align:right;" id="fee-base">₹7,499</td>
+                </tr>
+                <tr>
+                  <td class="text-center">02</td>
+                  <td>Digital Laboratory & LMS Access Fee</td>
+                  <td style="text-align:right;">₹0.00 (Subsidized)</td>
+                </tr>
+                <tr>
+                  <td class="text-center">03</td>
+                  <td>Digital Verification & Examination Assessment Fee</td>
+                  <td style="text-align:right;">₹0.00 (Included)</td>
+                </tr>
+                <tr>
+                  <td class="text-center">04</td>
+                  <td>Applicable Goods & Services Tax (GST)</td>
+                  <td style="text-align:right;">₹0.00 (Inclusive)</td>
+                </tr>
+                <tr style="background:#eaf1f8; font-weight:bold;">
+                  <td colspan="2" style="text-align:right; font-size:13px; text-transform:uppercase;">
+                    <strong>Net Total Prescribed Fee Payable:</strong>
+                  </td>
+                  <td style="text-align:right; font-size:16px; color:var(--gov-navy);" id="fee-total">
+                    ₹7,499
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="font-size:11.5px; color:#555; margin-top:6px; font-style:italic;" id="fee-words">
+            Amount in words: Rupees Seven Thousand Four Hundred Ninety-Nine Only
+          </div>
+        </div>
+
+        <!-- Payment Gateway Selection -->
+        <div style="background:#f4f7fa; border:1px solid #c5d2df; padding:16px; margin-bottom:20px; border-radius:2px;">
+          <div style="font-size:12.5px; font-weight:bold; color:var(--gov-navy); margin-bottom:8px; text-transform:uppercase;">
+            Select Payment Gateway:
+          </div>
+          <label style="display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #003366; padding:10px 14px; border-radius:2px; cursor:pointer;">
+            <input type="radio" name="pg" checked>
+            <div>
+              <strong style="color:var(--gov-navy);">Razorpay Digital Payment Gateway</strong>
+              <div style="font-size:11.5px; color:#555;">
+                Instant authorization via UPI (Google Pay, PhonePe, Paytm, BHIM), Net Banking (All Indian Banks), Visa, MasterCard, RuPay Cards.
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <!-- Terms Acknowledgement -->
+        <div style="margin-bottom:20px; font-size:12px; line-height:1.5;">
+          <label style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="terms-agree" checked style="margin-top:2px;">
+            <span>
+              I have verified the course syllabus and eligibility criteria. I agree to proceed to payment through the secured Razorpay gateway. I understand that an official electronic receipt will be generated upon transaction success.
+            </span>
+          </label>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex; gap:14px; align-items:center;">
+          <button type="button" class="gov-btn gov-btn-success" id="btn-pay-now" onclick="processPayment()" style="flex:1; padding:12px 20px; font-size:14px;">
+            PROCEED TO PAYMENT &raquo;
+          </button>
+          <a href="courses.html" class="gov-btn gov-btn-outline" style="padding:12px 18px;">
+            Cancel / Back
+          </a>
+        </div>
+
+        <!-- Legal note -->
+        <div style="text-align:center; font-size:11px; color:#777; margin-top:18px; border-top:1px dashed #d0d7de; padding-top:10px;">
+          Payments are processed securely through Razorpay. Fictional demo educational platform CourseHub.
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    let currentCourse = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('courses');
+      renderGovPortalFooter();
+
+      // Mount seal in challan header
+      document.getElementById('seal-mount').innerHTML = getPortalSealSvg(60);
+      document.getElementById('curr-date').textContent = formatGovDate(new Date());
+
+      const user = GovStore.getCurrentUser();
+      document.getElementById('cand-name').textContent = user.name;
+      document.getElementById('cand-id').textContent = user.learnerId;
+      document.getElementById('cand-email').textContent = user.email;
+      document.getElementById('cand-phone').textContent = user.phone;
+
+      const params = new URLSearchParams(window.location.search);
+      const courseId = params.get('courseId') || 'course_001';
+      document.getElementById('ref-no').textContent = `CH-TXN-2026-${Math.floor(100000 + Math.random() * 900000)}`;
+
+      try {
+        const res = await fetch(`/api/courses/${courseId}`);
+        if (!res.ok) throw new Error('Course not found');
+        currentCourse = await res.json();
+
+        document.getElementById('cand-course-code').textContent = currentCourse.code || 'CH-CRS-' + currentCourse.id;
+        document.getElementById('cand-course-mode').textContent = currentCourse.mode || 'Online (Self-Paced)';
+        document.getElementById('cand-course-title').textContent = currentCourse.title;
+        document.getElementById('cand-course-dept').textContent = currentCourse.department || 'Academic Department';
+
+        document.getElementById('fee-base').textContent = formatINR(currentCourse.price);
+        document.getElementById('fee-total').textContent = formatINR(currentCourse.price);
+        document.getElementById('fee-words').textContent = 'Amount in words: ' + numberToWordsINR(currentCourse.price);
+
+      } catch (err) {
+        console.error(err);
+        alert('Failed to load course details for payment.');
+      }
+    });
+
+    async function processPayment() {
+      if (!document.getElementById('terms-agree').checked) {
+        alert('Please accept the payment terms & conditions declaration.');
+        return;
+      }
+      if (!currentCourse) {
+        alert('Course details not loaded.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-pay-now');
+      btn.disabled = true;
+      btn.textContent = 'CONNECTING TO RAZORPAY GATEWAY...';
+
+      try {
+        await initiateGovRazorpayPayment(currentCourse.id);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'PROCEED TO PAYMENT »';
+      }
+    }
+  </script>
+</body>
+</html>

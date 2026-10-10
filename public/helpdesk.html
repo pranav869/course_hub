@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Helpdesk & Grievance Redressal | CourseHub Learning Portal</title>
+  <meta name="description" content="Central helpdesk, grievance filing, ticket status tracking, and frequently asked questions.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .faq-item {
+      border: 1px solid var(--gov-border-light);
+      margin-bottom: 8px;
+      border-radius: 2px;
+      background: #fff;
+    }
+    .faq-question {
+      padding: 10px 14px;
+      font-weight: 700;
+      color: var(--gov-navy);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fbfcfe;
+    }
+    .faq-question:hover {
+      background: var(--gov-blue-subtle);
+    }
+    .faq-answer {
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: #333;
+      line-height: 1.6;
+      border-top: 1px solid #edf2f7;
+      display: none;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+  </style>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <span class="current">CENTRAL HELPDESK & GRIEVANCE REDRESSAL</span>
+      </div>
+
+      <!-- 2-Column Grid: Left Grievance Form + Right Tracking & FAQs -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; align-items:start;">
+
+        <!-- LEFT COLUMN: Lodge Grievance Form -->
+        <section>
+          
+          <div class="gov-box">
+            <div class="gov-box-header maroon">
+              <span>📝 LODGE AN ONLINE GRIEVANCE / ACADEMIC QUERY</span>
+            </div>
+            <div class="gov-box-body" style="padding:18px;">
+              
+              <div style="background:#fff3e0; border:1px solid #ffe082; padding:10px 12px; margin-bottom:16px; font-size:12px; color:#b78103;">
+                <strong>Turnaround Time (TAT):</strong> Standard grievance redressal is processed within 24 to 48 working hours. An acknowledgment ticket will be generated upon submission.
+              </div>
+
+              <form id="grievance-form" onsubmit="handleGrievanceSubmit(event)">
+                
+                <div class="gov-form-group" style="margin-bottom:12px;">
+                  <label class="gov-form-label" for="g-name">Learner Full Name <span class="req">*</span></label>
+                  <input type="text" id="g-name" class="gov-input" required value="PRANAV EASHWARAN G">
+                </div>
+
+                <div class="gov-form-group" style="margin-bottom:12px;">
+                  <label class="gov-form-label" for="g-email">Email Address <span class="req">*</span></label>
+                  <input type="email" id="g-email" class="gov-input" required value="rajesh.kumar@example.in">
+                </div>
+
+                <div class="gov-form-group" style="margin-bottom:12px;">
+                  <label class="gov-form-label" for="g-id">Unique Learner ID <span class="req">*</span></label>
+                  <input type="text" id="g-id" class="gov-input" required value="CH-2026-9482">
+                </div>
+
+                <div class="gov-form-group" style="margin-bottom:12px;">
+                  <label class="gov-form-label" for="g-category">Grievance Category <span class="req">*</span></label>
+                  <select id="g-category" class="gov-select" required>
+                    <option value="payment">Fee Payment & Razorpay Transaction Reconciliation</option>
+                    <option value="registration">Course Registration & Enrollment Issue</option>
+                    <option value="certificate">Digital Certificate & Verification QR Issue</option>
+                    <option value="login">Portal Login & Account Authentication</option>
+                    <option value="technical">LMS Video Player & Technical Assistance</option>
+                    <option value="other">General Academic Query</option>
+                  </select>
+                </div>
+
+                <div class="gov-form-group" style="margin-bottom:12px;">
+                  <label class="gov-form-label" for="g-subject">Subject / Brief Summary <span class="req">*</span></label>
+                  <input type="text" id="g-subject" class="gov-input" required placeholder="e.g. Receipt download failed or payment query">
+                </div>
+
+                <div class="gov-form-group" style="margin-bottom:16px;">
+                  <label class="gov-form-label" for="g-desc">Detailed Description of Issue <span class="req">*</span></label>
+                  <textarea id="g-desc" class="gov-input" rows="4" required placeholder="Please provide specific details including transaction ID or course code..."></textarea>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                  <button type="submit" class="gov-btn gov-btn-primary" style="flex:1; padding:10px;">
+                    Submit Grievance
+                  </button>
+                  <button type="reset" class="gov-btn gov-btn-outline" style="padding:10px 18px;">
+                    Reset
+                  </button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- RIGHT COLUMN: Track Grievance & FAQs -->
+        <section>
+          
+          <!-- Track Existing Ticket -->
+          <div class="gov-box" style="margin-bottom:18px;">
+            <div class="gov-box-header">
+              <span>🔍 TRACK GRIEVANCE STATUS</span>
+            </div>
+            <div class="gov-box-body" style="padding:16px;">
+              <form onsubmit="handleTrackTicket(event)">
+                <div class="gov-form-group" style="margin-bottom:10px;">
+                  <label class="gov-form-label" for="track-ticket-id">Enter Grievance Ticket Number</label>
+                  <div style="display:flex; gap:8px;">
+                    <input type="text" id="track-ticket-id" class="gov-input" style="flex:1;" placeholder="e.g. CH-TKT-2026-8842" required value="CH-TKT-2026-8842">
+                    <button type="submit" class="gov-btn gov-btn-primary">
+                      Track Status
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Track Result Box -->
+              <div id="track-result" style="display:none; background:#e8f5e9; border:1px solid #81c784; padding:10px 14px; margin-top:12px; border-radius:2px; font-size:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="color:var(--gov-green-dark);" id="res-tkt-id">CH-TKT-2026-8842</strong>
+                  <span class="gov-badge active" id="res-status">IN PROGRESS</span>
+                </div>
+                <div style="margin-top:6px; color:#333;" id="res-desc">
+                  Assigned to: Central Accounts & Payment Redressal Cell. Officer review underway.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frequently Asked Questions (Accordion) -->
+          <div class="gov-box" id="faqs">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>❓ FREQUENTLY ASKED QUESTIONS (FAQS)</span>
+            </div>
+            <div class="gov-box-body" style="padding:14px;">
+              
+              <div class="faq-item open">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                  <span>1. How are course fees processed securely?</span>
+                  <span>▾</span>
+                </div>
+                <div class="faq-answer">
+                  All course fees on CourseHub Learning Portal are processed through the official Razorpay payment gateway. We support UPI (Google Pay, PhonePe, Paytm, BHIM), Net Banking across all Indian nationalized and private banks, and all RuPay/Visa/MasterCard cards. Signatures are verified cryptographically using server-side HMAC-SHA256 protocols.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                  <span>2. When will I receive my payment receipt?</span>
+                  <span>▾</span>
+                </div>
+                <div class="faq-answer">
+                  An electronic receipt bearing a unique computer-generated Receipt Number (e.g. <code>CH-RCP-2026-XXXXXX</code>) and Razorpay Payment ID is generated immediately on your screen upon transaction confirmation. You can also view and print receipts at any time under the <strong>Fee History</strong> tab.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                  <span>3. How is the course completion certificate verified?</span>
+                  <span>▾</span>
+                </div>
+                <div class="faq-answer">
+                  Upon finishing 80% or more of lecture units, learners can generate their verified digital certificate. Each credential contains a unique Certificate ID and a verification QR code that can be authenticated by employers or academic institutions.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                  <span>4. What should I do if money is deducted but enrollment is pending?</span>
+                  <span>▾</span>
+                </div>
+                <div class="faq-answer">
+                  If your bank account was debited but the course did not activate immediately, please allow 15 minutes for bank webhook reconciliation. Alternatively, lodge a query on this Helpdesk page with your Razorpay Payment ID.
+                </div>
+              </div>
+
+              <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                  <span>5. Can I access lecture videos on mobile devices?</span>
+                  <span>▾</span>
+                </div>
+                <div class="faq-answer">
+                  Yes, the CourseHub LMS is fully responsive across all standard Android, iOS, tablet, and desktop browser environments.
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderGovPortalHeader('helpdesk');
+      renderGovPortalFooter();
+
+      const user = GovStore.getCurrentUser();
+      document.getElementById('g-name').value = user.name;
+      document.getElementById('g-email').value = user.email;
+      document.getElementById('g-id').value = user.learnerId;
+    });
+
+    function toggleFaq(el) {
+      const parent = el.closest('.faq-item');
+      parent.classList.toggle('open');
+    }
+
+    function handleGrievanceSubmit(e) {
+      e.preventDefault();
+      const ticketId = `CH-TKT-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+      alert(`Grievance lodged successfully!\n\nYour Reference Ticket Number is: ${ticketId}\n\nPlease save this number for tracking.`);
+      document.getElementById('track-ticket-id').value = ticketId;
+      document.getElementById('g-subject').value = '';
+      document.getElementById('g-desc').value = '';
+      showGovToast('Grievance Lodged', `Ticket ${ticketId} created.`, 'success');
+    }
+
+    function handleTrackTicket(e) {
+      e.preventDefault();
+      const tkt = document.getElementById('track-ticket-id').value.trim();
+      const resultBox = document.getElementById('track-result');
+      document.getElementById('res-tkt-id').textContent = tkt;
+      resultBox.style.display = 'block';
+      showGovToast('Ticket Status', `Loaded status for ${tkt}`, 'info');
+    }
+  </script>
+</body>
+</html>

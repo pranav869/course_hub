@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Master Sheet & Syllabus | CourseHub Learning Portal</title>
+  <meta name="description" content="Official course syllabus, eligibility criteria, department guidelines, and fee structure.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumb -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="courses.html">COURSES</a>
+        <span>&gt;</span>
+        <span class="current" id="breadcrumb-course-title">COURSE DETAILS</span>
+      </div>
+
+      <!-- Main Layout Grid: Left Content (70%), Right Sticky Card (30%) -->
+      <div style="display:grid; grid-template-columns: 1fr 340px; gap:20px; align-items:start;" id="course-detail-layout">
+
+        <!-- LEFT COLUMN: Master Syllabus Sheet -->
+        <article class="gov-course-sheet">
+
+          <!-- Header Box -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="padding:12px 16px;">
+              <span id="course-header-code">COURSE CODE: CSE-FSWD-001</span>
+              <span class="gov-badge active" id="course-header-status">ACTIVE</span>
+            </div>
+            <div class="gov-box-body" style="padding:18px;">
+              <h2 id="course-title" style="font-size:22px; color:var(--gov-navy); margin-bottom:6px; font-weight:800;">
+                Loading Course Details...
+              </h2>
+              <div id="course-department" style="font-size:13px; color:#555; margin-bottom:14px; font-weight:600;">
+                Department of Computer Science & Software Engineering
+              </div>
+
+              <!-- Information Table -->
+              <table class="gov-info-table">
+                <tbody>
+                  <tr>
+                    <th>Course Code</th>
+                    <td id="info-code">--</td>
+                    <th>Academic Category</th>
+                    <td id="info-category">--</td>
+                  </tr>
+                  <tr>
+                    <th>Department / School</th>
+                    <td id="info-dept">--</td>
+                    <th>Chief Instructor</th>
+                    <td id="info-instructor">--</td>
+                  </tr>
+                  <tr>
+                    <th>Course Duration</th>
+                    <td id="info-duration">--</td>
+                    <th>Mode of Instruction</th>
+                    <td id="info-mode">--</td>
+                  </tr>
+                  <tr>
+                    <th>Target Level</th>
+                    <td id="info-level">--</td>
+                    <th>Medium of Instruction</th>
+                    <td id="info-language">English</td>
+                  </tr>
+                  <tr>
+                    <th>Total Lectures</th>
+                    <td id="info-lessons">--</td>
+                    <th>Verifiable Certificate</th>
+                    <td id="info-cert"><strong style="color:var(--gov-green-dark);">Yes (Digital QR Code)</strong></td>
+                  </tr>
+                  <tr>
+                    <th>Standard Tuition Fee</th>
+                    <td colspan="3">
+                      <strong style="font-size:16px; color:var(--gov-navy);" id="info-fee">₹--</strong>
+                      <span style="font-size:11px; color:#666; margin-left:8px;">(Including GST & Digital Examination Fee)</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+          <!-- Description Section -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>📖 COURSE OVERVIEW & DESCRIPTION</span>
+            </div>
+            <div class="gov-box-body" style="font-size:13px; line-height:1.7; color:#333;">
+              <p id="course-desc">--</p>
+            </div>
+          </div>
+
+          <!-- Course Objectives Section -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>🎯 KEY LEARNING OBJECTIVES</span>
+            </div>
+            <div class="gov-box-body" style="font-size:13px; line-height:1.7;">
+              <ol id="course-objectives" style="padding-left:20px; color:#333;">
+                <li>Understand fundamental principles and industry best practices.</li>
+                <li>Design and develop robust, production-grade solutions.</li>
+                <li>Gain hands-on practical implementation experience.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Detailed Curriculum / Syllabus Table -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>📋 APPROVED COURSE SYLLABUS & MODULES</span>
+            </div>
+            <div class="gov-table-container" style="border:none; margin:0;">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th style="width:70px;" class="text-center">Module</th>
+                    <th>Topic / Section Title</th>
+                    <th>Sub-Topics & Covered Lectures</th>
+                    <th style="width:100px; text-align:right;">Duration</th>
+                  </tr>
+                </thead>
+                <tbody id="syllabus-tbody">
+                  <tr>
+                    <td colspan="4" class="text-center" style="padding:16px;">Loading syllabus modules...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Eligibility & Certification -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>📜 ELIGIBILITY CRITERIA & CERTIFICATION RULES</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12.5px; line-height:1.6; color:#333;">
+              <div style="margin-bottom:12px;">
+                <strong style="color:var(--gov-navy);">1. Candidate Eligibility:</strong>
+                <p id="course-eligibility" style="margin-top:2px;">10+2 / Diploma or Equivalent in any discipline.</p>
+              </div>
+              <div style="margin-bottom:12px;">
+                <strong style="color:var(--gov-navy);">2. Attendance & Video Lectures:</strong>
+                <p style="margin-top:2px;">Learners must complete a minimum of 80% of module lectures in the online learning player to become eligible for the digital evaluation.</p>
+              </div>
+              <div>
+                <strong style="color:var(--gov-navy);">3. Certificate Issuance:</strong>
+                <p style="margin-top:2px;">Upon passing the final module assessment, an electronic course completion certificate with tamper-evident QR verification code is generated directly on the Learner Dashboard.</p>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- RIGHT COLUMN: Sticky Fee & Enrollment Action Card -->
+        <aside class="gov-course-sidebar" style="position:sticky; top:60px;">
+          
+          <div class="gov-box">
+            <div class="gov-box-header green">
+              <span>💳 ONLINE ENROLLMENT & FEE</span>
+            </div>
+            <div class="gov-box-body" style="padding:16px;">
+              
+              <!-- Thumbnail Preview -->
+              <div style="border:1px solid #ddd; margin-bottom:14px; background:#f5f5f5;">
+                <img id="course-thumbnail" src="" alt="Course Preview" style="width:100%; height:180px; object-fit:cover; display:block;">
+              </div>
+
+              <!-- Price Box -->
+              <div style="background:#f4f7fa; border:1px solid #d0d7de; padding:12px; margin-bottom:14px; border-radius:2px;">
+                <div style="font-size:11px; text-transform:uppercase; color:#666; font-weight:bold;">Total Prescribed Fee</div>
+                <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
+                  <span style="font-size:24px; font-weight:800; color:var(--gov-navy);" id="sidebar-price">₹--</span>
+                  <span style="font-size:13px; text-decoration:line-through; color:#888;" id="sidebar-orig-price">₹--</span>
+                </div>
+                <div style="font-size:11px; color:var(--gov-green-dark); font-weight:bold; margin-top:4px;">
+                  ✓ Subsidized Fee • Applicable for October 2026 Batch
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div id="enrollment-action-area">
+                <a id="btn-enroll-now" href="#" class="gov-btn gov-btn-success" style="width:100%; padding:10px 14px; margin-bottom:8px; font-size:13px;">
+                  Enroll & Proceed to Payment
+                </a>
+              </div>
+
+              <!-- Payment Trust Info -->
+              <div style="border-top:1px dashed #d0d7de; padding-top:12px; font-size:11.5px; color:#555; line-height:1.5;">
+                <div style="margin-bottom:6px;"><strong>🔒 Payment Security:</strong> 256-Bit Razorpay Payment Gateway</div>
+                <div style="margin-bottom:6px;"><strong>🏦 Supported Modes:</strong> UPI (GPay, PhonePe, Paytm), All Debit/Credit Cards, NetBanking</div>
+                <div><strong>📄 Fee Receipt:</strong> Downloadable immediately after payment confirmation</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Helpdesk Query Box -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#455a64;">
+              <span>❓ ADMISSION QUERIES?</span>
+            </div>
+            <div class="gov-box-body" style="font-size:12px;">
+              <p style="margin-bottom:6px;">Have questions regarding this course syllabus or fee?</p>
+              <div style="font-weight:bold; color:var(--gov-navy); margin-bottom:6px;">📞 1800-266-9900 (Toll Free)</div>
+              <a href="helpdesk.html" class="gov-btn gov-btn-outline gov-btn-sm" style="width:100%; text-align:center;">
+                Contact Academic Cell
+              </a>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('courses');
+      renderGovPortalFooter();
+
+      const params = new URLSearchParams(window.location.search);
+      const courseId = params.get('id') || 'course_001';
+
+      try {
+        const res = await fetch(`/api/courses/${courseId}`);
+        if (!res.ok) throw new Error('Course not found');
+        const course = await res.json();
+        renderCourseDetails(course);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('course-title').textContent = 'Course Details Not Found';
+      }
+    });
+
+    function renderCourseDetails(c) {
+      document.title = `${c.title} (${c.code}) | CourseHub Learning Portal`;
+      document.getElementById('breadcrumb-course-title').textContent = c.title.toUpperCase();
+      document.getElementById('course-header-code').textContent = `COURSE CODE: ${c.code || 'CH-CRS-' + c.id}`;
+      document.getElementById('course-header-status').textContent = c.status || 'ACTIVE';
+      document.getElementById('course-title').textContent = c.title;
+      document.getElementById('course-department').textContent = `🏛️ ${c.department || 'Department of Computer Science & Skill Development'}`;
+
+      document.getElementById('info-code').textContent = c.code || 'CH-CRS-' + c.id;
+      document.getElementById('info-category').textContent = c.category;
+      document.getElementById('info-dept').textContent = c.department || 'Academic Department';
+      document.getElementById('info-instructor').textContent = c.instructor;
+      document.getElementById('info-duration').textContent = c.durationWeeks || c.duration;
+      document.getElementById('info-mode').textContent = c.mode || 'Online (Self-Paced)';
+      document.getElementById('info-level').textContent = c.level;
+      document.getElementById('info-language').textContent = c.language || 'English / Hindi';
+      document.getElementById('info-lessons').textContent = `${c.lessons} Lectures (${c.duration})`;
+      document.getElementById('info-fee').textContent = formatINR(c.price);
+
+      document.getElementById('course-desc').textContent = c.description;
+
+      if (c.whatYouLearn && c.whatYouLearn.length > 0) {
+        document.getElementById('course-objectives').innerHTML = c.whatYouLearn.map(obj => `<li>${obj}</li>`).join('');
+      }
+
+      if (c.eligibility) {
+        document.getElementById('course-eligibility').textContent = c.eligibility;
+      }
+
+      // Sidebar
+      document.getElementById('course-thumbnail').src = c.thumbnail;
+      document.getElementById('sidebar-price').textContent = formatINR(c.price);
+      if (c.originalPrice) {
+        document.getElementById('sidebar-orig-price').textContent = formatINR(c.originalPrice);
+      }
+
+      // Check if user is already enrolled
+      const isEnrolled = GovStore.isEnrolled(c.id);
+      const actionArea = document.getElementById('enrollment-action-area');
+      if (isEnrolled) {
+        actionArea.innerHTML = `
+          <div style="background:#e8f5e9; border:1px solid #81c784; padding:10px; margin-bottom:8px; border-radius:2px; font-size:12px; color:#1b5e20;">
+            ✓ <strong>Already Enrolled:</strong> You have an active registration for this course.
+          </div>
+          <a href="learn.html?courseId=${c.id}" class="gov-btn gov-btn-success" style="width:100%; padding:10px 14px; margin-bottom:8px; font-size:13px;">
+            Access Learning Portal
+          </a>
+          <a href="payment-history.html" class="gov-btn gov-btn-outline gov-btn-sm" style="width:100%; text-align:center;">
+            View Fee Receipt
+          </a>
+        `;
+      } else {
+        document.getElementById('btn-enroll-now').href = `checkout.html?courseId=${c.id}`;
+      }
+
+      // Syllabus table
+      const tbody = document.getElementById('syllabus-tbody');
+      if (c.curriculum && c.curriculum.length > 0) {
+        tbody.innerHTML = c.curriculum.map((section, idx) => {
+          const modNo = `MOD-${String(idx + 1).padStart(2, '0')}`;
+          const lecturesCount = section.lectures ? section.lectures.length : 0;
+          const subtopics = section.lectures ? section.lectures.map(l => l.title).join(' • ') : 'Standard Modules';
+          return `
+            <tr>
+              <td class="text-center"><code>${modNo}</code></td>
+              <td><strong>${section.section}</strong></td>
+              <td style="font-size:12px; color:#444;">${subtopics}</td>
+              <td style="text-align:right;">${lecturesCount} Lessons</td>
+            </tr>
+          `;
+        }).join('');
+      } else {
+        tbody.innerHTML = `
+          <tr>
+            <td class="text-center"><code>MOD-01</code></td>
+            <td><strong>Core Principles & Foundations</strong></td>
+            <td style="font-size:12px; color:#444;">Comprehensive conceptual foundations and live exercises.</td>
+            <td style="text-align:right;">24 Lessons</td>
+          </tr>
+          <tr>
+            <td class="text-center"><code>MOD-02</code></td>
+            <td><strong>Applied Practice & Implementation</strong></td>
+            <td style="font-size:12px; color:#444;">Real-world case studies and industry scenarios.</td>
+            <td style="text-align:right;">30 Lessons</td>
+          </tr>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>

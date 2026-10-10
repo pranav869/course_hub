@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Completion Certificate | CourseHub Learning Portal</title>
+  <meta name="description" content="Official electronic certificate of course completion with verifiable digital ID.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    @media print {
+      body {
+        background: #fff !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .gov-cert-card {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        border: 4px double #002244 !important;
+      }
+    }
+  </style>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb no-print">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="dashboard.html">DASHBOARD</a>
+        <span>&gt;</span>
+        <span class="current">VERIFIABLE DIGITAL CERTIFICATE</span>
+      </div>
+
+      <!-- Actions Bar (Top) -->
+      <div class="no-print" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <div style="font-size:13px; color:var(--gov-green-dark); font-weight:bold;">
+          ✓ Cryptographically Verified Academic Credential
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="gov-btn gov-btn-primary" onclick="window.print()">
+            🖨️ Print / Save Certificate PDF
+          </button>
+          <a href="dashboard.html" class="gov-btn gov-btn-outline">
+            Return to Dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- FORMAL INSTITUTIONAL CERTIFICATE -->
+      <div class="gov-cert-card" id="printable-certificate">
+        
+        <!-- Crest Seal in Center Header -->
+        <div style="margin-bottom:12px;" id="cert-seal-mount">
+          <!-- Seal injected by JS -->
+        </div>
+
+        <div style="font-size:12px; letter-spacing:2px; font-weight:800; color:#555; text-transform:uppercase;">
+          CourseHub Learning Portal
+        </div>
+        <div style="font-size:11px; color:#777; margin-bottom:14px;">
+          National Online Skill Development & Digital Education Initiative
+        </div>
+
+        <div class="gov-cert-heading">
+          Certificate of Course Completion
+        </div>
+
+        <div class="gov-cert-sub">
+          This is to solemnly certify that
+        </div>
+
+        <div class="gov-cert-name" id="cert-learner-name">
+          PRANAV EASHWARAN G
+        </div>
+
+        <div style="font-size:14px; color:#444; margin-bottom:14px; max-width:620px; margin-left:auto; margin-right:auto; line-height:1.7;">
+          bearing Unique Learner Identification Number <strong id="cert-learner-id">CH-2026-9482</strong>, has successfully fulfilled all prescribed academic curriculum requirements, practical evaluations, and examination assessments for
+        </div>
+
+        <div style="font-size:22px; font-weight:800; color:var(--gov-navy); margin-bottom:6px; font-family:serif;" id="cert-course-title">
+          Complete Web Development Bootcamp 2026
+        </div>
+
+        <div style="font-size:12.5px; color:#666; font-weight:bold; margin-bottom:24px;">
+          Course Code: <span id="cert-course-code">CSE-FSWD-001</span> • Duration: <span id="cert-duration">12 Weeks (62 Hours)</span>
+        </div>
+
+        <!-- Grade & Distinction -->
+        <div style="display:inline-block; border:1px solid #c59b27; background:#fffdf2; padding:6px 20px; border-radius:2px; margin-bottom:20px;">
+          <span style="font-size:12px; font-weight:bold; color:#0b2545;">Performance Grade: <strong>A+ (Distinction)</strong></span>
+        </div>
+
+        <!-- Signatures & Verification Meta -->
+        <div class="gov-cert-meta">
+          
+          <!-- Verification QR & ID -->
+          <div style="text-align:left; font-size:11px; color:#555;">
+            <div style="width:75px; height:75px; border:1px solid #aaa; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-family:monospace; font-size:10px; margin-bottom:4px;">
+              [QR VERIFY]
+            </div>
+            <div>Certificate ID: <strong id="cert-id" style="color:#000;">CH-CERT-2026-90418</strong></div>
+            <div>Issue Date: <strong id="cert-date">10-Oct-2026</strong></div>
+          </div>
+
+          <!-- Academic Seal Badge -->
+          <div style="text-align:center;">
+            <div style="width:65px; height:65px; border:2px dashed #c59b27; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 4px; font-size:10px; color:#c59b27; font-weight:bold;">
+              OFFICIAL<br>SEAL
+            </div>
+            <div style="font-size:10px; color:#777;">Digitally Signed & Validated</div>
+          </div>
+
+          <!-- Signatory -->
+          <div style="text-align:right;">
+            <div style="font-family:cursive; font-size:18px; color:#002244; margin-bottom:2px;">
+              Dr. K. Swaminathan
+            </div>
+            <div style="border-top:1px solid #333; width:160px; margin-left:auto;"></div>
+            <div style="font-size:11px; font-weight:bold; color:#333; margin-top:2px;">Director of Academic Affairs</div>
+            <div style="font-size:10px; color:#666;">CourseHub Learning Portal</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('dashboard');
+      renderGovPortalFooter();
+
+      document.getElementById('cert-seal-mount').innerHTML = getPortalSealSvg(75);
+
+      const user = GovStore.getCurrentUser();
+      document.getElementById('cert-learner-name').textContent = user.name;
+      document.getElementById('cert-learner-id').textContent = user.learnerId;
+
+      const params = new URLSearchParams(window.location.search);
+      const courseId = params.get('courseId') || 'course_001';
+
+      document.getElementById('cert-id').textContent = `CH-CERT-2026-${Math.floor(10000 + Math.random() * 90000)}`;
+      document.getElementById('cert-date').textContent = formatGovDate(new Date());
+
+      try {
+        const res = await fetch(`/api/courses/${courseId}`);
+        if (res.ok) {
+          const course = await res.json();
+          document.getElementById('cert-course-title').textContent = course.title;
+          document.getElementById('cert-course-code').textContent = course.code || 'CH-CRS-' + course.id;
+          document.getElementById('cert-duration').textContent = course.durationWeeks || course.duration || '12 Weeks';
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>

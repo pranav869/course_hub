@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Directory & Search Results | CourseHub Learning Portal</title>
+  <meta name="description" content="Browse and search all technical, management and computer science courses available for enrollment.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content Area -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="courses.html">COURSES</a>
+        <span>&gt;</span>
+        <span class="current">COURSE SEARCH & DIRECTORY</span>
+      </div>
+
+      <!-- Page Header Banner -->
+      <div class="gov-search-panel" style="margin-bottom:16px;">
+        <div class="gov-panel-title">
+          <span>🔍 National Course Directory & Search Filter</span>
+          <span style="font-size:12px; font-weight:normal; text-transform:none; color:#555;" id="courses-count-indicator">
+            Showing all 20 courses
+          </span>
+        </div>
+
+        <!-- Filter Form -->
+        <form id="filter-form" onsubmit="event.preventDefault(); applyFilters();">
+          <div class="gov-form-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            
+            <div class="gov-form-group">
+              <label class="gov-form-label" for="filter-category">Discipline / Category</label>
+              <select id="filter-category" class="gov-select" onchange="applyFilters()">
+                <option value="">-- All Categories --</option>
+                <option value="Development">Information Technology</option>
+                <option value="Data Science">Data Science & Analytics</option>
+                <option value="AI & Machine Learning">Artificial Intelligence</option>
+                <option value="IT & Software">Cyber Security & Cloud</option>
+                <option value="Design">UI/UX & Digital Design</option>
+                <option value="Finance">Finance & Accounting</option>
+                <option value="Business">Management Studies</option>
+                <option value="Marketing">Digital Media</option>
+              </select>
+            </div>
+
+            <div class="gov-form-group">
+              <label class="gov-form-label" for="filter-level">Course Level</label>
+              <select id="filter-level" class="gov-select" onchange="applyFilters()">
+                <option value="">-- All Levels --</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+                <option value="All Levels">All Levels</option>
+              </select>
+            </div>
+
+            <div class="gov-form-group">
+              <label class="gov-form-label" for="filter-mode">Instruction Mode</label>
+              <select id="filter-mode" class="gov-select" onchange="applyFilters()">
+                <option value="">-- All Modes --</option>
+                <option value="Self-Paced">Online (Self-Paced)</option>
+                <option value="Instructor-Led">Online (Instructor-Led)</option>
+              </select>
+            </div>
+
+            <div class="gov-form-group">
+              <label class="gov-form-label" for="filter-sort">Sort Order</label>
+              <select id="filter-sort" class="gov-select" onchange="applyFilters()">
+                <option value="code">Course Code (Default)</option>
+                <option value="popular">Most Enrolled</option>
+                <option value="price_low">Fee: Low to High</option>
+                <option value="price_high">Fee: High to Low</option>
+                <option value="rating">Rating</option>
+              </select>
+            </div>
+
+            <div class="gov-form-group" style="grid-column: span 2;">
+              <label class="gov-form-label" for="filter-search">Keyword Search</label>
+              <input type="text" id="filter-search" class="gov-input" placeholder="Search by course title, code, instructor, or tags...">
+            </div>
+
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:8px;">
+            <div style="display:flex; gap:10px;">
+              <button type="submit" class="gov-btn gov-btn-primary">
+                Apply Filters
+              </button>
+              <button type="button" class="gov-btn gov-btn-outline" onclick="resetFilters()">
+                Reset Filters
+              </button>
+            </div>
+
+            <!-- View Toggle -->
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11.5px; font-weight:bold; color:#555;">View Layout:</span>
+              <button type="button" id="btn-view-table" class="gov-btn gov-btn-secondary gov-btn-sm" onclick="setViewMode('table')">
+                📄 Data Table
+              </button>
+              <button type="button" id="btn-view-grid" class="gov-btn gov-btn-outline gov-btn-sm" onclick="setViewMode('grid')">
+                🗂️ Cards Grid
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- TABLE VIEW CONTAINER -->
+      <div id="view-table-container" class="gov-table-container">
+        <table class="gov-table">
+          <thead>
+            <tr>
+              <th style="width:45px;" class="text-center">S.No</th>
+              <th style="width:120px;">Course Code</th>
+              <th>Course Title & Department</th>
+              <th>Category</th>
+              <th>Duration</th>
+              <th>Mode</th>
+              <th style="text-align:right;">Fee (₹)</th>
+              <th class="text-center">Status</th>
+              <th class="text-center" style="width:160px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="courses-tbody">
+            <tr>
+              <td colspan="9" class="text-center" style="padding:24px;">Loading Course Directory...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- GRID VIEW CONTAINER (Hidden by default, available on toggle) -->
+      <div id="view-grid-container" style="display:none; margin-bottom:20px;">
+        <div class="gov-categories-grid" id="courses-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+        </div>
+      </div>
+
+      <!-- Guidelines Notice Box -->
+      <div class="gov-box">
+        <div class="gov-box-header" style="background:#1a365d;">
+          <span>ℹ️ ENROLLMENT & FEE PAYMENT GUIDELINES</span>
+        </div>
+        <div class="gov-box-body" style="font-size:12px; color:#424242; line-height:1.6;">
+          <ul style="padding-left:18px;">
+            <li><strong>Eligibility Verification:</strong> Candidates are advised to thoroughly inspect course duration, syllabus topics, and prerequisites before making the online fee payment.</li>
+            <li><strong>Secure Digital Payment:</strong> Course fees are processed via the official Razorpay payment gateway in compliance with RBI guidelines for card, net banking, and UPI transactions.</li>
+            <li><strong>Official Receipt:</strong> Immediately upon successful transaction, an electronic receipt with valid transaction reference number and CourseHub seal is generated for download.</li>
+            <li><strong>Certification:</strong> Upon completing course modules and periodic assessments, learners are awarded a verifiable digital credential.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    let allCourses = [];
+    let currentView = 'table';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('courses');
+      renderGovPortalFooter();
+
+      // Parse URL search parameters if any
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('category')) {
+        document.getElementById('filter-category').value = params.get('category');
+      }
+      if (params.get('search')) {
+        document.getElementById('filter-search').value = params.get('search');
+      }
+
+      await loadCourses();
+    });
+
+    async function loadCourses() {
+      try {
+        const res = await fetch('/api/courses');
+        allCourses = await res.json();
+        applyFilters();
+      } catch (err) {
+        console.error(err);
+        document.getElementById('courses-tbody').innerHTML = `
+          <tr><td colspan="9" class="text-center" style="color:red; padding:20px;">Failed to load course registry. Please check network.</td></tr>
+        `;
+      }
+    }
+
+    function applyFilters() {
+      const category = document.getElementById('filter-category').value.toLowerCase();
+      const level = document.getElementById('filter-level').value.toLowerCase();
+      const mode = document.getElementById('filter-mode').value.toLowerCase();
+      const sort = document.getElementById('filter-sort').value;
+      const search = document.getElementById('filter-search').value.toLowerCase().trim();
+
+      let filtered = [...allCourses];
+
+      if (category) {
+        filtered = filtered.filter(c => c.category.toLowerCase().includes(category));
+      }
+      if (level) {
+        filtered = filtered.filter(c => c.level.toLowerCase() === level || c.level.toLowerCase() === 'all levels');
+      }
+      if (mode) {
+        filtered = filtered.filter(c => c.mode && c.mode.toLowerCase().includes(mode));
+      }
+      if (search) {
+        filtered = filtered.filter(c => 
+          c.title.toLowerCase().includes(search) ||
+          (c.code && c.code.toLowerCase().includes(search)) ||
+          c.instructor.toLowerCase().includes(search) ||
+          c.description.toLowerCase().includes(search)
+        );
+      }
+
+      // Sort
+      if (sort === 'popular') {
+        filtered.sort((a, b) => b.students - a.students);
+      } else if (sort === 'price_low') {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === 'price_high') {
+        filtered.sort((a, b) => b.price - a.price);
+      } else if (sort === 'rating') {
+        filtered.sort((a, b) => b.rating - a.rating);
+      } else {
+        // Default sort by code
+        filtered.sort((a, b) => (a.code || a.id).localeCompare(b.code || b.id));
+      }
+
+      document.getElementById('courses-count-indicator').textContent = `Showing ${filtered.length} of ${allCourses.length} courses`;
+
+      renderTable(filtered);
+      renderGrid(filtered);
+    }
+
+    function renderTable(courses) {
+      const tbody = document.getElementById('courses-tbody');
+      if (courses.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center" style="padding:24px; color:#666;">No courses found matching the search criteria.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = courses.map((c, i) => {
+        const sNo = String(i + 1).padStart(2, '0');
+        const isEnrolled = GovStore.isEnrolled(c.id);
+        return `
+          <tr>
+            <td class="text-center"><strong>${sNo}</strong></td>
+            <td><code style="font-weight:bold; color:var(--gov-navy);">${c.code || 'CH-CRS-' + c.id}</code></td>
+            <td>
+              <a href="course.html?id=${c.id}" style="font-weight:bold; font-size:13px; color:var(--gov-navy);">
+                ${c.title}
+              </a>
+              <div style="font-size:11px; color:#555; margin-top:2px;">
+                🏛️ ${c.department || c.instructor}
+              </div>
+            </td>
+            <td><span style="font-size:11.5px; font-weight:600;">${c.category}</span></td>
+            <td style="white-space:nowrap;">${c.durationWeeks || c.duration}</td>
+            <td style="font-size:11.5px;">${c.mode || 'Online'}</td>
+            <td style="text-align:right; white-space:nowrap;">
+              <strong style="color:var(--gov-navy);">${formatINR(c.price)}</strong>
+            </td>
+            <td class="text-center">
+              <span class="gov-badge active">${c.status || 'Active'}</span>
+            </td>
+            <td class="text-center" style="white-space:nowrap;">
+              <a href="course.html?id=${c.id}" class="gov-btn gov-btn-outline gov-btn-sm" style="margin-right:4px;">
+                View
+              </a>
+              ${isEnrolled ? `
+                <a href="learn.html?courseId=${c.id}" class="gov-btn gov-btn-success gov-btn-sm">
+                  Access
+                </a>
+              ` : `
+                <a href="checkout.html?courseId=${c.id}" class="gov-btn gov-btn-primary gov-btn-sm">
+                  Enroll
+                </a>
+              `}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderGrid(courses) {
+      const grid = document.getElementById('courses-grid');
+      grid.innerHTML = courses.map(c => {
+        const isEnrolled = GovStore.isEnrolled(c.id);
+        return `
+          <div class="gov-box" style="margin-bottom:0;">
+            <div class="gov-box-header" style="font-size:12px; padding:6px 10px;">
+              <span><code>${c.code}</code></span>
+              <span class="gov-badge active">${c.status}</span>
+            </div>
+            <div class="gov-box-body" style="padding:12px;">
+              <h3 style="font-size:14px; margin-bottom:6px; color:var(--gov-navy);">
+                <a href="course.html?id=${c.id}">${c.title}</a>
+              </h3>
+              <div style="font-size:11px; color:#666; margin-bottom:8px;">${c.department}</div>
+              <div style="font-size:12px; margin-bottom:6px;"><strong>Duration:</strong> ${c.durationWeeks} | ${c.mode}</div>
+              <div style="font-size:14px; font-weight:bold; color:var(--gov-navy); margin-bottom:12px;">
+                Fee: ${formatINR(c.price)}
+              </div>
+              <div style="display:flex; gap:6px;">
+                <a href="course.html?id=${c.id}" class="gov-btn gov-btn-outline gov-btn-sm" style="flex:1;">View Details</a>
+                ${isEnrolled ? `
+                  <a href="learn.html?courseId=${c.id}" class="gov-btn gov-btn-success gov-btn-sm" style="flex:1;">Access</a>
+                ` : `
+                  <a href="checkout.html?courseId=${c.id}" class="gov-btn gov-btn-primary gov-btn-sm" style="flex:1;">Enroll</a>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function resetFilters() {
+      document.getElementById('filter-category').value = '';
+      document.getElementById('filter-level').value = '';
+      document.getElementById('filter-mode').value = '';
+      document.getElementById('filter-sort').value = 'code';
+      document.getElementById('filter-search').value = '';
+      applyFilters();
+    }
+
+    function setViewMode(mode) {
+      currentView = mode;
+      const tableCont = document.getElementById('view-table-container');
+      const gridCont = document.getElementById('view-grid-container');
+      const btnTable = document.getElementById('btn-view-table');
+      const btnGrid = document.getElementById('btn-view-grid');
+
+      if (mode === 'table') {
+        tableCont.style.display = 'block';
+        gridCont.style.display = 'none';
+        btnTable.className = 'gov-btn gov-btn-secondary gov-btn-sm';
+        btnGrid.className = 'gov-btn gov-btn-outline gov-btn-sm';
+      } else {
+        tableCont.style.display = 'none';
+        gridCont.style.display = 'block';
+        btnTable.className = 'gov-btn gov-btn-outline gov-btn-sm';
+        btnGrid.className = 'gov-btn gov-btn-secondary gov-btn-sm';
+      }
+    }
+  </script>
+</body>
+</html>

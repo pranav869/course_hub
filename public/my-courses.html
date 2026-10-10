@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Registered Courses | CourseHub Learning Portal</title>
+  <meta name="description" content="View and access your enrolled online certification programs and learning progress.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <a href="dashboard.html">DASHBOARD</a>
+        <span>&gt;</span>
+        <span class="current">MY REGISTERED COURSES</span>
+      </div>
+
+      <!-- Page Panel -->
+      <div class="gov-box">
+        <div class="gov-box-header">
+          <span>📚 OFFICIAL LEARNER ENROLLMENT REGISTRY</span>
+          <a href="courses.html" style="color:#ffffff; font-size:11.5px; text-decoration:underline;">+ Register in Additional Course &raquo;</a>
+        </div>
+        <div class="gov-box-body" style="padding:14px;">
+          <p style="font-size:12px; color:#555; margin-bottom:14px;">
+            The following table displays all academic and vocational courses registered under Learner ID: <strong id="lbl-learner-id">CH-2026-9482</strong>.
+            Click <strong>"Continue Learning"</strong> to enter the digital LMS classroom.
+          </p>
+
+          <!-- Table -->
+          <div class="gov-table-container">
+            <table class="gov-table">
+              <thead>
+                <tr>
+                  <th style="width:45px;" class="text-center">S.No</th>
+                  <th style="width:120px;">Course Code</th>
+                  <th>Course Title & Department</th>
+                  <th>Category</th>
+                  <th style="width:160px;">Progress</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center" style="width:180px;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="my-courses-tbody">
+                <tr>
+                  <td colspan="7" class="text-center" style="padding:24px;">Loading registered courses...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('my-courses');
+      renderGovPortalFooter();
+
+      const user = GovStore.getCurrentUser();
+      document.getElementById('lbl-learner-id').textContent = user.learnerId;
+
+      const enrolledIds = GovStore.getEnrollments();
+      const tbody = document.getElementById('my-courses-tbody');
+
+      try {
+        const res = await fetch('/api/courses');
+        const allCourses = await res.json();
+        const myCourses = allCourses.filter(c => enrolledIds.includes(c.id));
+
+        if (myCourses.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" class="text-center" style="padding:24px; color:#666;">
+                No registered courses found. 
+                <a href="courses.html" style="font-weight:bold; color:var(--gov-navy);">Browse Course Directory &raquo;</a>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = myCourses.map((c, i) => {
+          const sNo = String(i + 1).padStart(2, '0');
+          const progress = GovStore.getProgress(c.id);
+          return `
+            <tr>
+              <td class="text-center"><strong>${sNo}</strong></td>
+              <td><code>${c.code || 'CH-CRS-' + c.id}</code></td>
+              <td>
+                <a href="course.html?id=${c.id}" style="font-weight:bold; color:var(--gov-navy);">
+                  ${c.title}
+                </a>
+                <div style="font-size:11px; color:#555;">🏛️ ${c.department || c.instructor}</div>
+              </td>
+              <td>${c.category}</td>
+              <td>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="flex:1; background:#e0e0e0; height:8px; border-radius:2px; overflow:hidden;">
+                    <div style="width:${progress}%; background:var(--gov-navy); height:100%;"></div>
+                  </div>
+                  <span style="font-size:11px; font-weight:bold;">${progress}%</span>
+                </div>
+              </td>
+              <td class="text-center">
+                <span class="gov-badge ${progress >= 100 ? 'success' : 'active'}">
+                  ${progress >= 100 ? 'Completed' : 'In Progress'}
+                </span>
+              </td>
+              <td class="text-center" style="white-space:nowrap;">
+                <a href="learn.html?courseId=${c.id}" class="gov-btn gov-btn-success gov-btn-sm" style="margin-right:4px;">
+                  Continue »
+                </a>
+                <a href="certificate.html?courseId=${c.id}" class="gov-btn gov-btn-outline gov-btn-sm">
+                  Certificate
+                </a>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learner Dashboard | CourseHub Learning Portal</title>
+  <meta name="description" content="Official learner administration dashboard with registered courses, fee transactions, and certificates.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <span class="current">CENTRAL LEARNER DASHBOARD</span>
+      </div>
+
+      <!-- Dashboard Layout Grid: Left Sidebar (250px) + Main Content -->
+      <div style="display:grid; grid-template-columns: 260px 1fr; gap:20px; align-items:start;">
+
+        <!-- LEFT SIDEBAR NAVIGATION -->
+        <aside class="gov-sidebar">
+          
+          <!-- User Profile Summary Badge -->
+          <div class="gov-box" style="margin-bottom:14px; text-align:center; padding:18px 14px;">
+            <div style="width:64px; height:64px; border-radius:50%; background:var(--gov-navy); color:#fff; display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:bold; margin:0 auto 10px; border:2px solid var(--gov-accent-gold);">
+              👤
+            </div>
+            <div style="font-size:14px; font-weight:800; color:var(--gov-navy);" id="dash-sidebar-name">PRANAV EASHWARAN G</div>
+            <div style="font-size:11.5px; color:#555; margin-top:2px;">
+              Learner ID: <strong id="dash-sidebar-id">CH-2026-9482</strong>
+            </div>
+            <div style="margin-top:6px;">
+              <span class="gov-badge active">Verified Learner</span>
+            </div>
+          </div>
+
+          <!-- Sidebar Navigation Menu -->
+          <div class="gov-box">
+            <div class="gov-box-header">
+              <span>📋 PORTAL SERVICES</span>
+            </div>
+            <ul class="gov-quick-links">
+              <li><a href="dashboard.html" style="background:#eaf1f8; font-weight:bold;">Dashboard Home</a></li>
+              <li><a href="my-courses.html">My Registered Courses</a></li>
+              <li><a href="courses.html">Course Registration (Catalogue)</a></li>
+              <li><a href="payment-history.html">Fee Payment History</a></li>
+              <li><a href="certificate.html?courseId=course_001">My Certificates</a></li>
+              <li><a href="helpdesk.html">Helpdesk & Grievance Redressal</a></li>
+              <li><a href="index.html" onclick="GovStore.saveUser(null); alert('Logged out successfully.');">Portal Logout</a></li>
+            </ul>
+          </div>
+
+          <!-- Academic Calendar Box -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#455a64;">
+              <span>🗓️ IMPORTANT DATES</span>
+            </div>
+            <div class="gov-box-body" style="font-size:11.5px; line-height:1.5; color:#444;">
+              <p>• <strong>31-Oct-2026:</strong> Mid-Term Project Submissions</p>
+              <p style="margin-top:4px;">• <strong>15-Nov-2026:</strong> Digital Certification Evaluation</p>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- MAIN DASHBOARD AREA -->
+        <section class="gov-main-dash">
+
+          <!-- Welcome Banner -->
+          <div class="gov-search-panel" style="margin-bottom:18px; border-top-color:var(--gov-navy);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <h2 style="font-size:18px; color:var(--gov-navy); font-weight:800;">
+                  Welcome, <span id="dash-welcome-name">PRANAV EASHWARAN G</span>
+                </h2>
+                <div style="font-size:12px; color:#555; margin-top:2px;">
+                  Registered State: <strong id="dash-state">Maharashtra (Pune)</strong> • Session: <strong>2026-2027</strong>
+                </div>
+              </div>
+              <a href="courses.html" class="gov-btn gov-btn-primary gov-btn-sm">
+                + Register for New Course
+              </a>
+            </div>
+          </div>
+
+          <!-- Metric Cards -->
+          <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-bottom:20px;">
+            <div class="gov-box" style="margin:0; text-align:center; padding:12px;">
+              <div style="font-size:24px; font-weight:800; color:var(--gov-navy);" id="count-enrolled">1</div>
+              <div style="font-size:11px; text-transform:uppercase; color:#666; font-weight:bold;">Enrolled Courses</div>
+            </div>
+            <div class="gov-box" style="margin:0; text-align:center; padding:12px;">
+              <div style="font-size:24px; font-weight:800; color:var(--gov-saffron);" id="count-inprogress">1</div>
+              <div style="font-size:11px; text-transform:uppercase; color:#666; font-weight:bold;">In-Progress</div>
+            </div>
+            <div class="gov-box" style="margin:0; text-align:center; padding:12px;">
+              <div style="font-size:24px; font-weight:800; color:var(--gov-green-dark);" id="count-completed">0</div>
+              <div style="font-size:11px; text-transform:uppercase; color:#666; font-weight:bold;">Completed</div>
+            </div>
+            <div class="gov-box" style="margin:0; text-align:center; padding:12px;">
+              <div style="font-size:24px; font-weight:800; color:var(--gov-maroon);" id="count-cert">1</div>
+              <div style="font-size:11px; text-transform:uppercase; color:#666; font-weight:bold;">Certificates</div>
+            </div>
+          </div>
+
+          <!-- Currently Registered Courses Table -->
+          <div class="gov-box">
+            <div class="gov-box-header">
+              <span>📚 CURRENTLY REGISTERED COURSES</span>
+              <a href="courses.html" style="color:#ffffff; font-size:11px; text-decoration:underline;">Browse More &raquo;</a>
+            </div>
+            <div class="gov-table-container" style="border:none; margin:0;">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th style="width:110px;">Course Code</th>
+                    <th>Course Title</th>
+                    <th>Mode</th>
+                    <th style="width:140px;">Progress</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center" style="width:170px;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-courses-tbody">
+                  <tr>
+                    <td colspan="6" class="text-center" style="padding:20px;">Loading your enrolled courses...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Recent Fee Payments & Receipts Table -->
+          <div class="gov-box">
+            <div class="gov-box-header" style="background:#1a365d;">
+              <span>🧾 RECENT FEE PAYMENT RECEIPTS</span>
+              <a href="payment-history.html" style="color:#ffffff; font-size:11px; text-decoration:underline;">View All History &raquo;</a>
+            </div>
+            <div class="gov-table-container" style="border:none; margin:0;">
+              <table class="gov-table">
+                <thead>
+                  <tr>
+                    <th>Receipt No</th>
+                    <th>Course</th>
+                    <th>Date</th>
+                    <th style="text-align:right;">Fee (₹)</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Receipt</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-receipts-tbody">
+                  <tr>
+                    <td colspan="6" class="text-center" style="padding:16px;">Loading payment receipts...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      renderGovPortalHeader('dashboard');
+      renderGovPortalFooter();
+
+      const user = GovStore.getCurrentUser();
+      document.getElementById('dash-sidebar-name').textContent = user.name;
+      document.getElementById('dash-sidebar-id').textContent = user.learnerId;
+      document.getElementById('dash-welcome-name').textContent = user.name;
+      document.getElementById('dash-state').textContent = `${user.state || 'India'} (${user.district || 'General'})`;
+
+      const enrolledIds = GovStore.getEnrollments();
+      document.getElementById('count-enrolled').textContent = enrolledIds.length;
+      document.getElementById('count-inprogress').textContent = enrolledIds.length;
+
+      // Fetch all courses to render enrolled list
+      try {
+        const res = await fetch('/api/courses');
+        const allCourses = await res.json();
+        const enrolledCourses = allCourses.filter(c => enrolledIds.includes(c.id));
+
+        const tbody = document.getElementById('dash-courses-tbody');
+        if (enrolledCourses.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="text-center" style="padding:20px; color:#666;">
+                You are not currently enrolled in any course. 
+                <a href="courses.html" style="font-weight:bold; color:var(--gov-navy);">Browse Directory &raquo;</a>
+              </td>
+            </tr>
+          `;
+        } else {
+          tbody.innerHTML = enrolledCourses.map(c => {
+            const progress = GovStore.getProgress(c.id);
+            return `
+              <tr>
+                <td><code>${c.code || 'CH-CRS-' + c.id}</code></td>
+                <td>
+                  <a href="course.html?id=${c.id}" style="font-weight:bold; color:var(--gov-navy);">
+                    ${c.title}
+                  </a>
+                  <div style="font-size:11px; color:#666;">${c.department}</div>
+                </td>
+                <td style="font-size:11.5px;">${c.mode || 'Online'}</td>
+                <td>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="flex:1; background:#e0e0e0; height:8px; border-radius:2px; overflow:hidden;">
+                      <div style="width:${progress}%; background:var(--gov-navy); height:100%;"></div>
+                    </div>
+                    <span style="font-size:11px; font-weight:bold;">${progress}%</span>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <span class="gov-badge active">In Progress</span>
+                </td>
+                <td class="text-center" style="white-space:nowrap;">
+                  <a href="learn.html?courseId=${c.id}" class="gov-btn gov-btn-success gov-btn-sm" style="margin-right:4px;">
+                    Continue
+                  </a>
+                  <a href="certificate.html?courseId=${c.id}" class="gov-btn gov-btn-outline gov-btn-sm">
+                    Certificate
+                  </a>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      // Render receipts
+      const payments = GovStore.getPayments();
+      const receiptsTbody = document.getElementById('dash-receipts-tbody');
+      if (payments.length === 0) {
+        receiptsTbody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding:16px;">No payment receipts found.</td></tr>`;
+      } else {
+        receiptsTbody.innerHTML = payments.slice(0, 3).map(p => {
+          return `
+            <tr>
+              <td><code>${p.receiptNo}</code></td>
+              <td><strong>${p.courseTitle || 'Course Fee'}</strong></td>
+              <td>${formatGovDate(p.date)}</td>
+              <td style="text-align:right;"><strong>${formatINR(p.amount)}</strong></td>
+              <td class="text-center"><span class="gov-badge success">${p.status}</span></td>
+              <td class="text-center">
+                <a href="success.html?receiptNo=${p.receiptNo}&courseId=${p.courseId}" class="gov-btn gov-btn-outline gov-btn-sm">
+                  View Receipt
+                </a>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+    });
+  </script>
+</body>
+</html>

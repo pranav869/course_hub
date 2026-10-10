@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learner Login Portal | CourseHub Learning Portal</title>
+  <meta name="description" content="Secure learner login to access enrolled courses, view payment receipts, and download certificates.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-normal">
+
+  <!-- Portal Header Mount -->
+  <div id="gov-header-root"></div>
+
+  <!-- Main Content -->
+  <main id="main-content" class="gov-page-body">
+    <div class="gov-container" style="max-width: 650px;">
+
+      <!-- Breadcrumbs -->
+      <div class="gov-breadcrumb">
+        <span>Current Location:</span>
+        <a href="index.html">HOME</a>
+        <span>&gt;</span>
+        <span class="current">LEARNER LOGIN</span>
+      </div>
+
+      <!-- Formal Login Box -->
+      <div class="gov-box">
+        <div class="gov-box-header">
+          <span>🔐 SECURE LEARNER LOGIN PORTAL</span>
+        </div>
+        <div class="gov-box-body" style="padding:24px;">
+
+          <div style="background:#eef3f8; border-left:4px solid var(--gov-navy); padding:10px 14px; margin-bottom:20px; font-size:12px; line-height:1.5;">
+            <strong>Instructions for Learners:</strong>
+            <ul style="padding-left:16px; margin-top:4px;">
+              <li>Please enter your registered Username or Email ID and Password.</li>
+              <li>Enter the case-sensitive security captcha as displayed.</li>
+              <li>Demo Credentials Pre-filled: <code>rajesh.kumar@example.in</code> / <code>Demo@1234</code>.</li>
+            </ul>
+          </div>
+
+          <form id="login-form" onsubmit="handleLogin(event)">
+            
+            <div class="gov-form-group" style="margin-bottom:14px;">
+              <label class="gov-form-label" for="login-username">
+                Username / Registered Email ID <span class="req">*</span>
+              </label>
+              <input type="text" id="login-username" class="gov-input" required value="rajesh.kumar@example.in" placeholder="Enter Username or Email">
+            </div>
+
+            <div class="gov-form-group" style="margin-bottom:14px;">
+              <label class="gov-form-label" for="login-password">
+                Password <span class="req">*</span>
+              </label>
+              <input type="password" id="login-password" class="gov-input" required value="Demo@1234" placeholder="Enter Password">
+            </div>
+
+            <!-- Security Captcha -->
+            <div class="gov-form-group" style="margin-bottom:18px;">
+              <label class="gov-form-label" for="login-captcha">
+                Security Code (Captcha) <span class="req">*</span>
+              </label>
+              <div class="gov-captcha-box" style="margin-bottom:6px;">
+                <span class="gov-captcha-image" id="captcha-display">9K4P2</span>
+                <button type="button" class="gov-captcha-refresh" onclick="refreshCaptcha()" title="Refresh Captcha">🔄 Refresh</button>
+              </div>
+              <input type="text" id="login-captcha" class="gov-input" style="max-width:200px;" required placeholder="Enter Captcha text">
+              <span style="font-size:10.5px; color:#666;">Letters are case-sensitive.</span>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; font-size:12px;">
+              <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="checkbox" checked> Remember Learner ID on this device
+              </label>
+              <a href="helpdesk.html" style="color:var(--gov-navy); font-weight:bold;">Forgot Password?</a>
+            </div>
+
+            <div style="display:flex; gap:12px; margin-bottom:20px;">
+              <button type="submit" class="gov-btn gov-btn-primary" style="flex:1; padding:10px;">
+                Secure Login
+              </button>
+              <button type="reset" class="gov-btn gov-btn-outline" style="padding:10px 20px;" onclick="refreshCaptcha()">
+                Clear
+              </button>
+            </div>
+
+            <div style="border-top:1px solid #e0e0e0; padding-top:16px; font-size:12px; text-align:center;">
+              Don't have a registered Learner Account? 
+              <a href="register.html" style="font-weight:bold; color:var(--gov-navy); margin-left:4px;">
+                Register Here (New Learner Registration) &raquo;
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Portal Footer Mount -->
+  <div id="gov-footer-root"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script>
+    let currentCaptcha = '9K4P2';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderGovPortalHeader('login');
+      renderGovPortalFooter();
+      refreshCaptcha();
+    });
+
+    function refreshCaptcha() {
+      currentCaptcha = generateGovCaptcha();
+      document.getElementById('captcha-display').textContent = currentCaptcha;
+      document.getElementById('login-captcha').value = '';
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const userCaptcha = document.getElementById('login-captcha').value.trim();
+      if (userCaptcha.toUpperCase() !== currentCaptcha.toUpperCase()) {
+        alert('Security verification failed. Please enter the correct captcha code shown.');
+        refreshCaptcha();
+        return;
+      }
+
+      showGovToast('Authentication Successful', 'Redirecting to Learner Dashboard...', 'success');
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 800);
+    }
+  </script>
+</body>
+</html>
